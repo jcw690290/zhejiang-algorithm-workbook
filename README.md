@@ -16,6 +16,20 @@
 
 AI 需要联网并使用自己的密钥，受服务商计费、额度与跨域策略约束。配置方法见 [AI使用说明.md](AI使用说明.md)。切换供应商会清除旧密钥，任何密钥都不应提交到 Git 仓库。
 
+## 安卓 APK
+
+不想解压文件夹、希望在手机上直接做题，可以安装打包好的 APK：
+
+[**下载 zhejiang-algorithm-workbook-1.0.apk**](https://github.com/jcw690290/zhejiang-algorithm-workbook/releases/download/v1.0/zhejiang-algorithm-workbook-1.0.apk)
+
+- 版本 1.0，约 601 KB，Android 5.0（API 21）及以上。
+- 全部 32 道题、题干配图和两层解析都打包在应用内，**不联网也能做题**。
+- 首次安装需允许「安装未知来源应用」；浏览器提示「此类文件可能有害」属于未上架应用商店的常规提示。
+- 校验：SHA-256 `1a84ed1abffe15809cfeec45dddd093c37885c8074b0b7dc6ff64d9644ba4e7b`，MD5 `9210bd6c13c82b918ea0f435951be168`，APK Signature Scheme v1/v2/v3 均已签名。
+- 应用内页面由 `https://appassets.local/` 这个虚拟源提供资产，所以内置 AI 助教发请求时 Origin 不是 `null`，与网页版行为一致；仍受服务商跨域策略约束。
+
+发布页见 [Releases](https://github.com/jcw690290/zhejiang-algorithm-workbook/releases/tag/v1.0)。
+
 ## 开发与构建
 
 需要 Node.js 22.12 或更高版本。
@@ -58,6 +72,8 @@ python verify_algorithms.py
 
 专题参考用户提供的对应表，并补齐 6 道未映射题目；两处题干不符的表格分类已修正。仓库原文与新增教学说明分开展示，发现的笔误和边界问题在页面中注明。
 
-## 安卓使用方向
+## 安卓应用
 
-当前交付为静态网页，尚未制作 PWA 或 APK。后续可先增加 PWA 清单、图标和离线缓存，实现支持浏览器上的桌面安装，再按实际分发需求考虑 APK。AI 仍需要网络，包装成 APK 不会自动消除 API 密钥或跨域方面的限制。
+APK 已经发布（见上文「安卓 APK」）。工程源码不在本仓库内：它只做三件事——用一个只含 `INTERNET` 权限的 `WebView` 承载练习册，把所有请求拦截回 `assets/index.html`，以及把非 `appassets.local` 的链接交给系统浏览器。因此 APK 里的内容与仓库中的 `index.html` 字节完全一致，网页版和 APK 不会各自演化出不同版本。
+
+尚未制作 PWA。APK 不改变 AI 的联网需求：不填密钥时应用完全离线可用，填了才联网，且仍受服务商计费、额度与跨域策略约束。
