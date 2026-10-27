@@ -1,0 +1,38 @@
+<dialog id="aiDialog" aria-labelledby="aiTitle">
+  <div class="modalhead"><div><span class="eyebrow">OPTIONAL · 自备 API</span><h2 id="aiTitle">一起读懂这道题</h2></div><button data-close="aiDialog">关闭</button></div>
+  <p id="aiQuestionLabel" class="ai-question-label"></p>
+  <details id="aiSettings" class="disclosure" open>
+    <summary>接口设置 <small>Chat Completions 兼容接口</small></summary>
+    <div class="inside">
+      <fieldset id="aiConfigFields" class="ai-fields">
+        <label class="ai-wide">选择供应商<select id="aiProvider"><option value="openrouter">OpenRouter · 自动填入地址与模型</option><option value="deepseek">DeepSeek · 自动填入地址与模型</option><option value="custom">自定义兼容接口</option></select></label>
+        <p id="aiProviderHint" class="small muted ai-wide" style="margin:0"></p>
+        <label class="ai-wide">API 基础地址或完整接口地址<input id="aiEndpoint" type="url" placeholder="https://api.example.com/v1" autocomplete="off" spellcheck="false"></label>
+        <label>模型名称<input id="aiModel" placeholder="填写服务商提供的模型 ID" maxlength="200" autocomplete="off" spellcheck="false"></label>
+        <label>API Key（仅本次打开有效）<input id="aiKey" type="password" placeholder="输入你的 API Key" autocomplete="off" spellcheck="false" maxlength="4096"></label>
+        <label>输出 token 上限<input id="aiLimit" type="number" min="128" max="8192" value="2048" step="1"></label>
+        <label>上限参数<select id="aiLimitField"><option value="max_tokens">max_tokens（常见兼容接口）</option><option value="max_completion_tokens">max_completion_tokens</option></select></label>
+        <label class="ai-wide ai-check"><input id="aiRemember" type="checkbox">记住地址、模型和上限设置（不含密钥）</label>
+      </fieldset>
+      <p class="small muted" id="aiDestination">填入地址后会显示实际请求地址。</p>
+      <div class="ai-actions"><button id="aiTest">测试连接（会调用模型）</button><button id="aiForget">清除密钥与对话</button></div>
+      <p id="aiConfigStatus" class="small muted"></p>
+      <p class="small muted">密钥和题目直接发送给你填写的服务商；请只填写你信任的地址。页面没有中转服务器。密钥与 AI 对话不写入本地存储，刷新即清空。浏览器插件及同页面脚本仍可能访问密钥。</p>
+      <details class="ai-help"><summary>接口与连接说明</summary><p>需要支持 POST /chat/completions、Bearer 密钥和浏览器跨域请求（CORS）的接口。基础地址应包含服务商要求的版本路径，例如 /v1；本页只补全 /chat/completions。此模式不支持原生 Responses、Claude Messages 或 Gemini 格式。上限参数请按服务商文档选择。</p><p>直接打开 HTML 时，接口还需允许来源 null；使用 GitHub Pages 时，需允许你的站点来源。网络、CORS、证书及混合内容问题可能显示同一种连接错误，页面无法绕过这些限制。仅支持 HTTPS；本机 localhost / 127.0.0.1 / [::1] 可使用 HTTP。</p><p>测试连接也可能计费。停止等待或超时只能中断本页请求，服务商仍可能继续生成并计费。</p></details>
+    </div>
+  </details>
+  <section class="ai-chat" aria-label="当前题目的 AI 对话">
+    <div class="ai-chat-heading"><h3>本题学习对话</h3><button id="aiClear">清空本题对话</button></div>
+    <p class="small muted">AI 回答可能出错，请结合原题和已有解析核对。只发送题目文字，不发送配图；涉及图中细节时，请在提问中补充说明。</p>
+    <div id="aiMessages" class="ai-messages" aria-label="对话记录"></div>
+    <div class="ai-actions ai-shortcuts"><button data-ai-prompt="hint">只给提示</button><button data-ai-prompt="variables">解释变量</button><button data-ai-prompt="check">检查我的作答</button></div>
+    <label class="ai-check"><input id="aiIncludeAnswer" type="checkbox">附带本题答案与原创教学解析</label>
+    <label class="ai-check"><input id="aiIncludeDraft" type="checkbox">附带我的本题选择或草稿</label>
+    <details class="ai-help"><summary>查看将发送的题目资料</summary><pre id="aiContextPreview" class="ai-context"></pre></details>
+    <label class="ai-prompt-label" for="aiPrompt">想问什么？</label>
+    <textarea id="aiPrompt" rows="3" maxlength="4000" placeholder="例如：为什么这里需要先修改 tail，再移动 head？"></textarea>
+    <div class="ai-actions"><button class="primary" id="aiSend">发送提问</button><button id="aiStop" disabled>停止等待</button><span class="small muted">Ctrl / ⌘ + Enter 发送</span></div>
+    <p id="aiStatus" class="ai-status" role="status" aria-live="polite">未发送请求。填写接口后即可使用。</p>
+    <p class="small muted">对话按题目分开，仅在本次打开期间保留。每次发送会附带上方题目资料、当前问题与本题最近最多 6 轮对话（合计最多 16000 字符）。</p>
+  </section>
+</dialog>

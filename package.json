@@ -1,0 +1,21 @@
+{
+  "name": "zhejiang-algorithm-workbook",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "浙江信息技术选考算法专题练习册：离线静态页面与可选自备 API 助教",
+  "license": "MulanPSL-2.0",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node test-ai.mjs && node test-home.mjs"
+  },
+  "dependencies": {
+    "marked": "17.0.5"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}
