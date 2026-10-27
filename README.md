@@ -74,6 +74,6 @@ python verify_algorithms.py
 
 ## 安卓应用
 
-APK 已经发布（见上文「安卓 APK」）。工程源码不在本仓库内：它只做三件事——用一个只含 `INTERNET` 权限的 `WebView` 承载练习册，把所有请求拦截回 `assets/index.html`，以及把非 `appassets.local` 的链接交给系统浏览器。因此 APK 里的内容与仓库中的 `index.html` 字节完全一致，网页版和 APK 不会各自演化出不同版本。
+APK 已经发布（见上文「安卓 APK」）。工程源码不在本仓库内：它只做三件事——用一个只含 `INTERNET` 权限的 `WebView` 承载练习册，把所有请求拦截回 `assets/index.html`，以及把非 `appassets.local` 的链接交给系统浏览器。v1.0 APK 内置的是发布时的页面快照。仓库中的 `index.html` 后续更新（包括本次教学解析修订）不会自动进入已发布的 APK；使用新版解析请下载仓库最新版 HTML，安卓安装包需要重新打包发布后才会更新。
 
 尚未制作 PWA。APK 不改变 AI 的联网需求：不填密钥时应用完全离线可用，填了才联网，且仍受服务商计费、额度与跨域策略约束。
