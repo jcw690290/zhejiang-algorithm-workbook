@@ -20,15 +20,16 @@ AI 需要联网并使用自己的密钥，受服务商计费、额度与跨域�
 
 不想解压文件夹、希望在手机上直接做题，可以安装打包好的 APK：
 
-[**下载 zhejiang-algorithm-workbook-1.0.apk**](https://github.com/jcw690290/zhejiang-algorithm-workbook/releases/download/v1.0/zhejiang-algorithm-workbook-1.0.apk)
+[**下载 zhejiang-algorithm-workbook-1.1.apk**](https://github.com/jcw690290/zhejiang-algorithm-workbook/releases/download/v1.1/zhejiang-algorithm-workbook-1.1.apk)
 
-- 版本 1.0，约 601 KB，Android 5.0（API 21）及以上。
-- 全部 32 道题、题干配图和两层解析都打包在应用内，**不联网也能做题**。
+- 版本 1.1，约 1.31 MB，Android 5.0（API 21）及以上；可直接覆盖安装 1.0，做题记录、复习标记和草稿都会保留。
+- 内置当前仓库的最新页面，包含本次加强后的教学解析：32 道题、10 张题干配图和两层解析全部打包在应用内，**不联网也能做题**。
+- 应用图标为白龙娘头像，并同时提供 48～192 px 的经典图标与 Android 8.0+ 自适应图标（自适应图标由桌面按系统形状裁剪）。
 - 首次安装需允许「安装未知来源应用」；浏览器提示「此类文件可能有害」属于未上架应用商店的常规提示。
-- 校验：SHA-256 `1a84ed1abffe15809cfeec45dddd093c37885c8074b0b7dc6ff64d9644ba4e7b`，MD5 `9210bd6c13c82b918ea0f435951be168`，APK Signature Scheme v1/v2/v3 均已签名。
+- 校验：SHA-256 `1bd909db9b82b8821d8c12873cf7b849bf7159f2df6f9a5b5fcf5f6531524b46`，MD5 `9270b7beafc38150a3d5ab4ebffa0f8f`，APK Signature Scheme v1/v2/v3 均已签名（与 1.0 使用同一证书）。
 - 应用内页面由 `https://appassets.local/` 这个虚拟源提供资产，所以内置 AI 助教发请求时 Origin 不是 `null`，与网页版行为一致；仍受服务商跨域策略约束。
 
-发布页见 [Releases](https://github.com/jcw690290/zhejiang-algorithm-workbook/releases/tag/v1.0)。
+发布页见 [Releases](https://github.com/jcw690290/zhejiang-algorithm-workbook/releases)：最新为 [v1.1](https://github.com/jcw690290/zhejiang-algorithm-workbook/releases/tag/v1.1)，旧版 [v1.0](https://github.com/jcw690290/zhejiang-algorithm-workbook/releases/tag/v1.0) 仍可下载。
 
 ## 开发与构建
 
@@ -74,6 +75,8 @@ python verify_algorithms.py
 
 ## 安卓应用
 
-APK 已经发布（见上文「安卓 APK」）。工程源码不在本仓库内：它只做三件事——用一个只含 `INTERNET` 权限的 `WebView` 承载练习册，把所有请求拦截回 `assets/index.html`，以及把非 `appassets.local` 的链接交给系统浏览器。v1.0 APK 内置的是发布时的页面快照。仓库中的 `index.html` 后续更新（包括本次教学解析修订）不会自动进入已发布的 APK；使用新版解析请下载仓库最新版 HTML，安卓安装包需要重新打包发布后才会更新。
+APK 已发布（见上文「安卓 APK」），最新版本 1.1。工程源码不在本仓库内：它只做三件事——用一个只含 `INTERNET` 权限的 `WebView` 承载练习册，把所有请求拦截回 `assets/index.html`，以及把非 `appassets.local` 的链接交给系统浏览器。
+
+1.1 内置的是发布时的页面快照。仓库里的 `index.html` 此后若再更新，不会自动进入已发布的 APK：想立刻看到新版内容，请直接下载仓库最新版 HTML；安卓安装包需要重新打包并发布新版本才会同步。
 
 尚未制作 PWA。APK 不改变 AI 的联网需求：不填密钥时应用完全离线可用，填了才联网，且仍受服务商计费、额度与跨域策略约束。
